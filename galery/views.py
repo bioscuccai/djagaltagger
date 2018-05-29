@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View, ListView
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from galery.models import Image, Tag
 from . import forms
@@ -14,10 +16,10 @@ logger = logging.getLogger(__name__)
 def index(request):
   return HttpResponse('response')
 
-class ImageListView(ListView):
+class ImageListView(LoginRequiredMixin, ListView):
   model = Image
   context_object_name = 'images'
-  paginate_by = 20
+  paginate_by = 40
 
   def get_queryset(self):
     if 'tag' in self.request.GET:
@@ -31,7 +33,7 @@ class ImageListView(ListView):
 
     return context
 
-class UploadView(View):
+class UploadView(LoginRequiredMixin, View):
   def get(self, request):
     form = forms.UploadForm()
     logger.error('uplaod page')
@@ -49,6 +51,7 @@ class UploadView(View):
     return redirect('/upload')
 
 @csrf_exempt
+@login_required
 def add_tag(request, pk, tag_name):
   tag = None
   image = get_object_or_404(Image, pk=pk)

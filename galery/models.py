@@ -9,3 +9,7 @@ class Image(models.Model):
   title = models.CharField(max_length=255)
   image = models.ImageField(upload_to='images')
   tags = models.ManyToManyField(Tag)
+
+class Category(models.Model):
+  name = models.CharField(max_length=255)
+  default_status = models.BooleanField(default=False)
