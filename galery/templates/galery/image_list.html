@@ -1,0 +1,51 @@
+{% extends "./layout.html" %}
+{% load thumbnail %}
+{% load query_parameters %}
+{% load galery_extras %}
+
+{% block main %}
+  <h1>
+    Images
+  </h1>
+  <div>
+    {% include './_tag_list.html' %}
+  </div>
+  <div>
+    {% for chunk in page_obj|chunks:5 %}
+      <div class="row">
+        {% for image in chunk %}
+          <div class="column column-20">
+            <div>
+              <a href="{{image.image.url}}" target="_blank">
+                <img src="{% thumbnail image.image '200x200' %}">
+              </a>
+            </div>
+            <div>
+              [ <a href="#" class="tag-button" data-image="{{ image.pk }}">Add tag</a> ]
+            </div>
+            <div>
+              {% for tag in image.tags.all %}
+                <a href="?tag={{ tag.name }}">{{tag.name}}</a>
+                &nbsp;
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="row">
+    {% for page in page_obj.paginator.page_range %}
+      <a href="?{% set_query_parameters page=page tag=request.GET.tag %}">
+        {% if page_obj.number == page %}
+          <strong>{{ page }}</strong>
+        {% else %}
+          {{ page }}
+        {% endif %}
+        &nbsp;
+      </a>
+    {% endfor %}
+  </div>
+  {% include './_tag_selector.html' %}
+{% endblock %}
