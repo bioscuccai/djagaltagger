@@ -2,8 +2,12 @@
 
 <div class="row">
   {% for page in page_obj.paginator.page_range %}
-    {% if request.GET.tag %}
+    {% if request.GET.tag and not request.GET.artist_id %}
       <a href="?{% set_query_parameters page=page tag=request.GET.tag %}">
+    {% elif request.GET.artist_id and not request.GET.tag %}
+      <a href="?{% set_query_parameters page=page artist_id=request.GET.artist_id %}">
+    {% elif request.GET.artist_id and request.GET.tag %}
+      <a href="?{% set_query_parameters page=page artist_id=request.GET.artist_id tag=request.GET.tag %}"></a>
     {% else %}
       <a href="?page={{ page }}">
     {% endif %}

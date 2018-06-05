@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from galery.models import Image, Tag, Artist
+from galery.models import Image, Tag, Artist, Category
 from .. import forms
 
 import logging
@@ -21,16 +21,25 @@ class ImageListView(LoginRequiredMixin, ListView):
     paginate_by = 40
 
     def get_queryset(self):
+        queries = {}
         if 'tag' in self.request.GET:
-            return Image.objects.filter(tags__name=self.request.GET['tag'])
-        else:
+            queries['tags__name'] = self.request.GET['tag']
+
+        if 'artist_id' in self.request.GET:
+            artist = get_object_or_404(Artist, pk=int(self.request.GET['artist_id']))
+            queries['image__contains'] = f'/{ artist.prefix }'
+
+        if ('tag' not in self.request.GET) and ('artist_id' not in self.request.GET):
             return super().get_queryset()
+
+        return Image.objects.filter(**queries)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tags'] = Tag.objects.all()
         context['last_tag'] = self.request.session.get('last_tag', '')
         context['artists'] = Artist.objects.all()
+        context['categories'] = Category.objects.all()
 
         return context
 

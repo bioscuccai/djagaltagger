@@ -7,8 +7,9 @@
     Images
   </h1>
 
-    {% include './_tag_list.html' %}
-    {% include './_paginator.html' %}
+  {% include './_tag_list.html' %}
+  {% include './_categories.html' %}
+  {% include './_paginator.html' %}
 
   <div>
     {% for chunk in page_obj|chunks:5 %}
