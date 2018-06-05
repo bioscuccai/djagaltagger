@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from galery.models import Image, Tag
 from . import forms
@@ -36,16 +37,15 @@ class ImageListView(LoginRequiredMixin, ListView):
 class UploadView(LoginRequiredMixin, View):
   def get(self, request):
     form = forms.UploadForm()
-    logger.error('uplaod page')
     return render(request, 'galery/upload.html', {'form': form})
 
   def post(self, request):
     form = forms.UploadForm(request.POST, request.FILES)
     if form.is_valid():
       for f in request.FILES.getlist('images'):
-        print('image')
         image = Image(image=f)
         image.save()
+        messages.info(request, 'The images have been uploaded')
     else:
       print('invalid form')
     return redirect('/upload')
