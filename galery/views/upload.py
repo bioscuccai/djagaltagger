@@ -14,18 +14,19 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class UploadView(LoginRequiredMixin, View):
-  def get(self, request):
-    form = forms.UploadForm()
-    return render(request, 'galery/upload.html', {'form': form})
 
-  def post(self, request):
-    form = forms.UploadForm(request.POST, request.FILES)
-    if form.is_valid():
-      for f in request.FILES.getlist('images'):
-        image = Image(image=f)
-        image.save()
-        messages.info(request, 'The images have been uploaded')
-    else:
-      print('invalid form')
-    return redirect('/upload')
+class UploadView(LoginRequiredMixin, View):
+    def get(self, request):
+        form = forms.UploadForm()
+        return render(request, 'galery/upload.html', {'form': form})
+
+    def post(self, request):
+        form = forms.UploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            for f in request.FILES.getlist('images'):
+                image = Image(image=f)
+                image.save()
+                messages.info(request, 'The images have been uploaded')
+        else:
+            print('invalid form')
+        return redirect('/upload')
