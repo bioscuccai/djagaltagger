@@ -13,3 +13,7 @@ class Image(models.Model):
 class Category(models.Model):
   name = models.CharField(max_length=255)
   default_status = models.BooleanField(default=False)
+
+class Artist(models.Model):
+  name = models.CharField(max_length=255)
+  prefix = models.CharField(max_length=255)
