@@ -20,14 +20,20 @@
                 <img src="{% thumbnail image.image '200x200' %}">
               </a>
             </div>
+
             <div>
               [ <a href="#" class="tag-button" data-image="{{ image.pk }}">Add tag</a> ]
             </div>
+
             <div>
               {% for tag in image.tags.all %}
                 <a href="?tag={{ tag.name }}">{{tag.name}}</a>
                 &nbsp;
               {% endfor %}
+            </div>
+
+            <div>
+              {% artist_name image artists %}
             </div>
           </div>
         {% endfor %}

@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from galery.models import Image, Tag
+from galery.models import Image, Tag, Artist
 from .. import forms
 
 import logging
@@ -29,6 +29,7 @@ class ImageListView(LoginRequiredMixin, ListView):
     context = super().get_context_data(**kwargs)
     context['tags'] = Tag.objects.all()
     context['last_tag'] = self.request.session.get('last_tag', '')
+    context['artists'] = Artist.objects.all()
 
     return context
 
