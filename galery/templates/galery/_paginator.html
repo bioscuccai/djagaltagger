@@ -1,0 +1,18 @@
+{% load query_parameters %}
+
+<div class="row">
+  {% for page in page_obj.paginator.page_range %}
+    {% if request.GET.tag %}
+      <a href="?{% set_query_parameters page=page tag=request.GET.tag %}">
+    {% else %}
+      <a href="?page={{ page }}">
+    {% endif %}
+      {% if page_obj.number == page %}
+        <strong>{{ page }}</strong>
+      {% else %}
+        {{ page }}
+      {% endif %}
+      &nbsp;
+    </a>
+  {% endfor %}
+</div>

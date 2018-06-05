@@ -32,3 +32,6 @@ class Category(models.Model):
 class Artist(models.Model):
   name = models.CharField(max_length=255)
   prefix = models.CharField(max_length=255)
+
+  class Meta:
+    ordering = ['name']

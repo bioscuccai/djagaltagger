@@ -31,6 +31,7 @@ class ImageListView(LoginRequiredMixin, ListView):
   def get_context_data(self, **kwargs):
     context = super().get_context_data(**kwargs)
     context['tags'] = Tag.objects.all()
+    context['last_tag'] = self.request.session.get('last_tag', '')
 
     return context
 
@@ -60,5 +61,7 @@ def add_tag(request, pk, tag_name):
 
   if len(image.tags.filter(pk=tag.pk)) is 0:
     image.tags.add(tag)
+
+  request.session['last_tag'] = tag_name
 
   return JsonResponse({'status': 'ok'})
