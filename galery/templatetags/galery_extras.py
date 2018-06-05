@@ -19,3 +19,7 @@ def artist_name(image, artists):
             return {'artist': artist}
 
     return None
+
+@register.filter('array_to_newline')
+def array_to_newline(arr):
+    return '\n'.join(arr)

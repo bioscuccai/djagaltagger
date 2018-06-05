@@ -9,4 +9,5 @@ urlpatterns = [
     path('artists/<int:pk>/preview',
          views.artist.artist_preview, name='artist_preview'),
     path('artists/', views.artist.artist_list, name='artist_list'),
+    path('difference', views.difference.DifferenceView.as_view(), name='difference')
 ]
