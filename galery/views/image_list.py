@@ -7,9 +7,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from galery.models import Image, Tag, Artist, Category
+from rest_framework import viewsets, mixins
+from ..serializers import ImageSerializer, TagSerializer, ProjectSerializer
+
+from galery.models import Image, Tag, Artist, Category, Project, ImageRange
 from .. import forms
 
+import pprint
 import logging
 
 logger = logging.getLogger(__name__)
@@ -40,7 +44,9 @@ class ImageListView(LoginRequiredMixin, ListView):
         context['last_tag'] = self.request.session.get('last_tag', '')
         context['artists'] = Artist.objects.all()
         context['categories'] = Category.objects.all()
+        context['page_ranges'] = {k: list(v) for k, v in ImageRange.objects.grouped_by_page(40)}
 
+        pprint.pprint(context['page_ranges'])
         return context
 
 
@@ -58,3 +64,15 @@ def add_tag(request, pk, tag_name):
     request.session['last_tag'] = tag_name
 
     return JsonResponse({'status': 'ok'})
+
+class ImageViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+
+class TagViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+class ProjectViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer

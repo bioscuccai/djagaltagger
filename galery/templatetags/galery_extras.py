@@ -23,3 +23,13 @@ def artist_name(image, artists):
 @register.filter('array_to_newline')
 def array_to_newline(arr):
     return '\n'.join(arr)
+
+@register.filter('present_image_ranges')
+def present_image_ranges(page_num, image_ranges):
+    page_num0 = page_num - 1
+    
+    return []
+
+@register.filter('return_item')
+def return_item(obj, key):
+    return obj.get(key)

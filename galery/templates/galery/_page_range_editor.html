@@ -1,0 +1,20 @@
+<form action="/image_ranges" id="imagerange-form" method="post">
+    <div class="row">
+        <div class="column column-20">
+            <input id='name' type="text" name="name" placeholder="Name">
+        </div>
+        <div class="column column-20">
+            <input id='start' type="number" name="start" placeholder="Start" value="{{ page_obj.start_index }}">
+        </div>
+        <div class="column column-20">
+            <input id='end' type="number" name="end" placeholder="End" value="{{ page_obj.end_index }}">
+        </div>
+        <div class="column column-20">
+            <label>Mixed</label>
+            <input type="checkbox" name="mixed" id="mixed">
+        </div>
+        <div class="column column-20">
+            <input id="create-pagerange" type="submit" value="Label">
+        </div>
+    </div>
+</form>

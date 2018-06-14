@@ -5,3 +5,20 @@
   float: right;
   width: 200px !important;
 }
+
+.page-link {
+  position: relative;
+}
+
+.page-range-name {
+  position: absolute;
+  bottom: -10px;
+  display: none;
+  background-color: #ffb26b;
+  padding: 3px;
+  margin: 3px;
+}
+
+.page-link:hover .page-range-name {
+  display: inline-block;
+}
