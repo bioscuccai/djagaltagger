@@ -7,7 +7,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register('artists', views.artist.ArtistViewSet)
 router.register('images', views.image_list.ImageViewSet)
-router.register('tags', views.image_list.TagViewSet)
+router.register('tags', views.tag.TagViewSet)
 router.register('projects', views.image_list.ProjectViewSet)
 router.register('image_ranges', views.image_range.ImageRangeViewSet)
 

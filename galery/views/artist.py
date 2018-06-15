@@ -9,8 +9,6 @@ from rest_framework import viewsets
 from ..serializers import ArtistSerializer
 
 from galery.models import Image, Tag, Artist
-from .. import forms
-
 
 @login_required
 def artist_list(request):
@@ -30,3 +28,4 @@ def artist_preview(request, pk):
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
+    pagination_class = None

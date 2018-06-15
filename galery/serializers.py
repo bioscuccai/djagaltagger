@@ -8,10 +8,10 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 
 #class ImageSerializer(serializers.HyperlinkedModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
-    #image = serializers.CharField(source='image')
+    tags = serializers.StringRelatedField(many=True)
     class Meta:
         model = Image
-        fields = ('pk', 'title', 'tags', 'project', 'image',)
+        fields = ('pk', 'title', 'tags', 'project', 'image','thumbnail_url',)
 
 class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -26,4 +26,4 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
 class ImageRangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageRange
-        fields = ('start', 'end', 'name',)
+        fields = ('start', 'end', 'name', 'mixed', 'color',)

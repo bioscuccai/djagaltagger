@@ -12,6 +12,10 @@ from ..serializers import ImageSerializer, TagSerializer, ProjectSerializer
 
 from galery.models import Image, Tag, Artist, Category, Project, ImageRange
 from .. import forms
+from ..filtersets import ImageFilter
+from ..paginator import PaginatorWithSize
+
+from django_filters import rest_framework as filters
 
 import pprint
 import logging
@@ -19,7 +23,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class ImageListView(LoginRequiredMixin, ListView):
+#class ImageListView(LoginRequiredMixin, ListView):
+class ImageListView(ListView):
     model = Image
     context_object_name = 'images'
     paginate_by = 40
@@ -68,10 +73,10 @@ def add_tag(request, pk, tag_name):
 class ImageViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
-
-class TagViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
-    queryset = Tag.objects.all()
-    serializer_class = TagSerializer
+    filter_class = ImageFilter
+    filter_backends = (filters.DjangoFilterBackend,)
+    pagination_class = PaginatorWithSize
+    #filter_fields = ('tag',)
 
 class ProjectViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Project.objects.all()

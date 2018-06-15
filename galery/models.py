@@ -31,10 +31,13 @@ class Image(models.Model):
     tags = models.ManyToManyField(Tag)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
 
-    def thumbnail_tag(self):
+    def thumbnail_url(self):
         thumb_options = {'size': (200, 200,)}
         thumb_url = get_thumbnailer(self.image).get_thumbnail(thumb_options).url
-        return format_html('<img src="{}">', thumb_url)
+        return thumb_url
+
+    def thumbnail_tag(self):
+        return format_html('<img src="{}">', self.thumb_url)
 
     def __str__(self):
         return self.title
