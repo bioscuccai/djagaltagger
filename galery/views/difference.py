@@ -11,6 +11,8 @@ from .. import forms
 import os
 import djagal.settings
 
+from rest_framework import views
+from rest_framework.response import Response
 
 class DifferenceView(View):
     def get(self, request):
@@ -29,3 +31,11 @@ class DifferenceView(View):
             'difference': difference,
             'form': forms.DifferenceForm()
         })
+
+class DifferenceViewSet(views.APIView):
+    def post(self, request):
+        present = os.listdir('static/uploads/images')
+        difference = []
+        expected = request.data['files'].split('\n')
+        difference = set(expected) - set(present)
+        return Response(difference)

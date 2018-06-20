@@ -4,7 +4,7 @@ from django.db import models
 from easy_thumbnails.files import get_thumbnailer
 from django.utils.html import format_html
 from django.db.models import F, Q
-
+from django.core.validators import RegexValidator
 # Create your models here.
 
 class Project(models.Model):
@@ -30,6 +30,8 @@ class Image(models.Model):
     image = models.ImageField(upload_to='images')
     tags = models.ManyToManyField(Tag)
     project = models.ForeignKey(Project, on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def thumbnail_url(self):
         thumb_options = {'size': (200, 200,)}
@@ -37,7 +39,7 @@ class Image(models.Model):
         return thumb_url
 
     def thumbnail_tag(self):
-        return format_html('<img src="{}">', self.thumb_url)
+        return format_html('<img src="{}">', self.thumbnail_url())
 
     def __str__(self):
         return self.title
@@ -68,6 +70,7 @@ class Artist(models.Model):
 
 class ImageRangeManager(models.Manager):
     def grouped_by_page(self, pagination_size):
+        # ghetto group by
         page_ranges = super().get_queryset().annotate(page=F('start')/pagination_size+1)
 
         return itertools.groupby(page_ranges, key=lambda x: x.page)
@@ -77,7 +80,8 @@ class ImageRange(models.Model):
     start = models.IntegerField(null=False, default=0)
     end = models.IntegerField(null=False, default=0)
     mixed = models.BooleanField(null=False, default=False)
-    color = models.CharField(default="#000000", null=False, max_length=255)
+    color = models.CharField(default="#000000", null=False, max_length=7,
+        validators=[RegexValidator(regex=r'\#[0-9a-fA-F]{6}')])
 
     objects = ImageRangeManager()
 

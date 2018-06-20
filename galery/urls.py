@@ -20,4 +20,6 @@ urlpatterns = [
     path('artists/', views.artist.artist_list, name='artist_list'),
     path('difference', views.difference.DifferenceView.as_view(), name='difference'),
     path('api/', include(router.urls)),
+    path('api/upload/', views.upload.UploadViewSet.as_view()),
+    path('api/differences/', views.difference.DifferenceViewSet.as_view()),
 ]

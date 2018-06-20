@@ -6,6 +6,7 @@ django-filter==1.1.0
 django-model-repr==0.0.6
 django-query-parameters==0.2.3
 djangorestframework==3.8.2
+djangorestframework-camel-case==0.2.0
 easy-thumbnails==2.5
 gunicorn==19.8.1
 isort==4.3.4

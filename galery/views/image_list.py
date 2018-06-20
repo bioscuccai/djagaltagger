@@ -8,7 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from rest_framework import viewsets, mixins
-from ..serializers import ImageSerializer, TagSerializer, ProjectSerializer
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from ..serializers import ImageSerializer, TagSerializer, ProjectSerializer, AddTagSerializer
 
 from galery.models import Image, Tag, Artist, Category, Project, ImageRange
 from .. import forms
@@ -76,7 +78,19 @@ class ImageViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Ge
     filter_class = ImageFilter
     filter_backends = (filters.DjangoFilterBackend,)
     pagination_class = PaginatorWithSize
-    #filter_fields = ('tag',)
+
+    @action(methods=['POST'], detail=True)
+    def add_tag(self, request, pk=None):
+        image = self.get_object()
+        serializer = AddTagSerializer(data=request.data)
+        if serializer.is_valid():
+            tag_name = serializer.data['tag']
+            tag, _ = Tag.objects.get_or_create(name=tag_name)
+
+            if len(image.tags.filter(pk=tag.pk)) is 0:
+                image.tags.add(tag)
+            return Response({"status": "ok"})
+        return Response({"status": "not ok"})
 
 class ProjectViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Project.objects.all()
