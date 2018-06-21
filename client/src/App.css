@@ -1,0 +1,71 @@
+.tag:not(:last-child) {
+  margin-right: 1em;
+}
+
+.artist:not(:last-child) {
+  margin-right: 1em;
+}
+
+.tag-adder {
+  position: fixed !important;
+  bottom: 0;
+  right: 0;
+  float: right;
+  width: 200px !important;
+}
+
+.gradient-page-number {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent
+}
+
+.page-link {
+  position: relative;
+}
+
+.image-range-holder {
+  position: absolute;
+  top: 1em;
+  left: 5px;
+  display: none;
+  background-color: #e8e8e8;
+  padding: 3px;
+  margin: 3px;
+}
+
+.page-link:hover .image-range-holder {
+  display: inline-block;
+}
+
+.bordered-widget {
+  width: 300px;
+  background-color: rgba(240, 240, 240, 0.6);
+  border: #9b4dca 2px solid;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.image-range-form {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.image-range-form-display {
+  position: fixed;
+  left: 7px;
+  bottom: 7px;
+}
+
+.inactive-link {
+  font-style: italic;
+  color: gray;
+}
+
+.current-menu {
+  font-weight: bold;
+}
+
+.thumnbail {
+  max-width: 100%;
+}
