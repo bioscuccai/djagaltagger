@@ -1,5 +1,7 @@
 # Image tagging galery
-A WIP Django Rest Framework + React project I'm learning DRF and MobX with. The code, especially the server is a mess at the moment.
+A WIP Django Rest Framework + React project I'm learning DRF and MobX with. The code, especially the server's is a mess at the moment.
+
+Also, it turns out that Djagal is a name in some countries, which was unintended on my part as I was just trying to find a throwaway name for a *Dja*ngo *gal*ery.
 
 ## Server
 The server is using DRF to provide and API and still contains parts of an old MVC implementation that will be removed soon.
