@@ -20,7 +20,7 @@ class TagListOpener extends Component {
         }}
         onClick={this.handleToggleOpen}>
           Tags:
-          <i class={classNames({
+          <i className={classNames({
             fa: true,
             'fa-folder-open': !this.state.open,
             'fa-window-close': this.state.open
