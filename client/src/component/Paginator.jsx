@@ -77,7 +77,7 @@ class Paginator extends Component {
     }
 
     return (
-      <div>
+      <div className="long-list">
         {elements}
       </div>
     );

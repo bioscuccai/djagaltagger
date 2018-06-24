@@ -14,7 +14,7 @@ class ArtistListOpener extends Component {
 
   render() {
     return (
-      <div>
+      <div className="long-list">
         <span style={{
           cursor: 'pointer'
         }}

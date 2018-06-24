@@ -21,7 +21,7 @@ def artist_list(request):
 def artist_preview(request, pk):
     artist = get_object_or_404(Artist, pk=pk)
 
-    images = Image.objects.filter(image__contains=f'/{artist.prefix}')[:5]
+    images = Image.objects.filter(image__contains='/' + artist.prefix)[:5]
 
     return HttpResponse(serializers.serialize('json', images))
 

@@ -14,7 +14,7 @@ class TagListOpener extends Component {
 
   render() {
     return (
-      <span>
+      <span className="long-list">
         <span style={{
           cursor: 'pointer'
         }}

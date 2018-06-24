@@ -38,7 +38,7 @@ class ImageListView(ListView):
 
         if 'artist_id' in self.request.GET:
             artist = get_object_or_404(Artist, pk=int(self.request.GET['artist_id']))
-            queries['image__contains'] = f'/{ artist.prefix }'
+            queries['image__contains'] = '/' + artist.prefix
 
         if ('tag' not in self.request.GET) and ('artist_id' not in self.request.GET):
             return super().get_queryset()

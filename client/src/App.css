@@ -69,3 +69,8 @@
 .thumnbail {
   max-width: 100%;
 }
+
+.long-list {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
