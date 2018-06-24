@@ -9,6 +9,7 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 #class ImageSerializer(serializers.HyperlinkedModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     tags = serializers.StringRelatedField(many=True)
+    image = serializers.FileField(use_url=False)
 
     class Meta:
         model = Image

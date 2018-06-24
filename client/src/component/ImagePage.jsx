@@ -9,6 +9,7 @@ import Paginator from './Paginator';
 import ImageRangeFrom from './ImageRangeForm';
 import TagListOpener from './TagListOpener';
 import ArtistListOpener from './ArtistListOpener';
+import PatternFilter from './PatternFilter';
 
 class ImagePage extends Component {
   componentWillMount() {
@@ -46,6 +47,8 @@ class ImagePage extends Component {
         <div className="row">
           <TagListOpener tags={this.props.store.tags.tags} tagbarName='top' />
         </div>
+
+        <PatternFilter/>
 
         <div className="row">
           <Paginator
