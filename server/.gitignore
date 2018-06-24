@@ -1,6 +1,7 @@
 *.pyc
-/static/lib/*
+/static
 /static/uploads/images/*
+!/static/assets
 !/static/uploads/images/.gitkeep
 !/static/lib/.gitkeep
 *.sqlite3
