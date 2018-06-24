@@ -153,5 +153,3 @@ REST_FRAMEWORK = {
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
     ),
 }
-
-CORS_ORIGIN_ALLOW_ALL = True
