@@ -9,7 +9,11 @@ class ArtistSerializer(serializers.HyperlinkedModelSerializer):
 #class ImageSerializer(serializers.HyperlinkedModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     tags = serializers.StringRelatedField(many=True)
-    image = serializers.FileField(use_url=False)
+    # image = serializers.FileField(use_url=False)
+    image = serializers.SerializerMethodField(method_name='relative_image_url')
+
+    def relative_image_url(self, obj):
+        return obj.image.url
 
     class Meta:
         model = Image
