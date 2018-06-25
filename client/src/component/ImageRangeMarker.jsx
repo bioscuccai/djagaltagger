@@ -22,12 +22,11 @@ function gradientStyle(imageRanges) {
 class ImageRangeMarker extends Component {
   render() {
     return (
-      <div style={{
+      <span style={{
         ...gradientStyle(this.props.imageRanges),
-        display: 'inline-block',
         height: '1em',
         width: '5px'
-      }}></div>
+      }}>&nbsp;</span>
     );
   }
 }
