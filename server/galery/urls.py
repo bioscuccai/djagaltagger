@@ -14,7 +14,7 @@ router.register('image_ranges', views.image_range.ImageRangeViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
-    path('api/upload/', views.upload.UploadViewSet.as_view()),
-    path('api/differences/', views.difference.DifferenceViewSet.as_view()),
+    path('api/upload/', views.upload.UploadAPIView.as_view()),
+    path('api/differences/', views.difference.DifferenceAPIView.as_view()),
     path('', views.frontend)
 ]
