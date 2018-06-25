@@ -14,24 +14,6 @@ import djagal.settings
 from rest_framework import views
 from rest_framework.response import Response
 
-class DifferenceView(View):
-    def get(self, request):
-        form = forms.DifferenceForm()
-        difference = []
-        return render(request, 'galery/difference.html', locals())
-
-    def post(self, request):
-        present = os.listdir('static/uploads/images')
-        form = forms.DifferenceForm(request.POST)
-        difference = []
-        if form.is_valid():
-            expected = form.cleaned_data['files'].split('\n')
-            difference = set(expected) - set(present)
-        return render(request, 'galery/difference.html', {
-            'difference': difference,
-            'form': forms.DifferenceForm()
-        })
-
 class DifferenceViewSet(views.APIView):
     def post(self, request):
         present = os.listdir('static/uploads/images')

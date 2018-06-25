@@ -10,21 +10,6 @@ from ..serializers import ArtistSerializer
 
 from galery.models import Image, Tag, Artist
 
-@login_required
-def artist_list(request):
-    artists = Artist.objects.all()
-
-    return HttpResponse(serializers.serialize('json', artists), content_type='application/json')
-
-
-@login_required
-def artist_preview(request, pk):
-    artist = get_object_or_404(Artist, pk=pk)
-
-    images = Image.objects.filter(image__contains='/' + artist.prefix)[:5]
-
-    return HttpResponse(serializers.serialize('json', images))
-
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
