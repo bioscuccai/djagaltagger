@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import qs from 'qs';
 
+import ArtistPreviewTooltip from './ArtistPreviewTooltip';
+
 class ArtistListOpener extends Component {
   render() {
     return (
@@ -20,6 +22,7 @@ class ArtistListOpener extends Component {
                   })
                 }}>
                 {artist.name}
+                <ArtistPreviewTooltip artist={artist}/>
               </Link>
             )
           })

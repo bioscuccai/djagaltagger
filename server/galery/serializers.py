@@ -1,10 +1,6 @@
 from rest_framework import serializers
 from .models import Artist, Image, Tag, Project, ImageRange
 
-class ArtistSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Artist
-        fields = ('pk', 'name', 'prefix', )
 
 #class ImageSerializer(serializers.HyperlinkedModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
@@ -18,6 +14,17 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ('pk', 'title', 'tags', 'project', 'image', 'thumbnail_url',)
+
+class ArtistSerializer(serializers.HyperlinkedModelSerializer):
+    preview_images = serializers.SerializerMethodField(method_name="preview_images_filter")
+
+    def preview_images_filter(self, obj):
+        return [(ImageSerializer(image).data) for image in (Image.objects.filter(image__contains='/' + obj.prefix)[0:3])]
+
+    class Meta:
+        model = Artist
+        fields = ('pk', 'name', 'prefix', 'preview_images', 'description',)
+
 
 class TagSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

@@ -61,6 +61,7 @@ class Category(models.Model):
 class Artist(models.Model):
     name = models.CharField(max_length=255)
     prefix = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, null=False, default='')
 
     def __str__(self):
         return self.name
