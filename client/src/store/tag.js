@@ -41,7 +41,7 @@ class TagStore {
 
   addRecentTag(tag) {
     this.tagBox.recent.replace(this.tagBox.recent.filter(elem => elem !== tag));
-    this.tagBox.recent.replace(this.tagBox.recent.splice(0, 14));
+    this.tagBox.recent.replace(this.tagBox.recent.splice(0, 29));
     this.tagBox.recent.unshift(tag);
 
     this.saveRecentTags();
