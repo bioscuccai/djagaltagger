@@ -16,8 +16,8 @@ class ImagePage extends Component {
     let parsedQuery = qs.parse(this.props.location.search, {
       ignoreQueryPrefix: true
     });
-    this.props.store.tags.fetchTags(parsedQuery);
-    this.props.store.images.fetchImages();
+    this.props.store.tags.fetchTags();
+    this.props.store.images.fetchImages(parsedQuery);
     this.props.store.imageRanges.fetchImageRanges();
     this.props.store.artists.fetchArtists();
     this.props.store.tags.loadRecentTags();

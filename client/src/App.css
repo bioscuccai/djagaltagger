@@ -35,6 +35,8 @@
   background-color: #e8e8e8;
   padding: 3px;
   margin: 3px;
+  border: 2px #9b4dca solid;
+  border-radius: 5px;
 }
 
 .page-link:hover .image-range-holder {
@@ -89,6 +91,7 @@
   padding: 5px;
   border: 2px #9b4dca solid;
   border-radius: 5px;
+  z-index: 100;
 }
 
 .artist:hover .artist-preview-tooltip {

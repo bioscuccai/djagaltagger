@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import classNames from 'classnames';
 
+import TagAdderColumn from './TagAdderItemColumn';
+
 class TagAdder extends Component {
   constructor(props) {
     super(props);
@@ -11,19 +13,17 @@ class TagAdder extends Component {
   }
 
   render() {
+    const halfTagCount = Math.ceil(this.props.store.tags.tagBox.recent.length / 2);
+    const leftTags = this.props.store.tags.tagBox.recent.slice(0, halfTagCount);
+    const rightTags = this.props.store.tags.tagBox.recent.slice(halfTagCount, this.props.store.tags.tagBox.recent.length);
     return (
       <div className="bordered-widget tag-adder">
-        <div style={{
-          display: this.state.showRecent ? 'block' : 'none',
+        <div className="row" style={{
+          display: this.state.showRecent ? 'flex' : 'none',
           cursor: 'pointer'
         }}>
-          { this.props.store.tags.tagBox.recent.map(tag => {
-            return (
-              <div key={`tag-adder-recent-${tag}`}
-                onClick={this.handleRecentTagClick.bind(this,tag)}
-              >{tag}</div>
-            );
-          })}
+          <TagAdderColumn tags={leftTags}/>
+          <TagAdderColumn tags={rightTags}/>
         </div>
 
         <div className="row">
