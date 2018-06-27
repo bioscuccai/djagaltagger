@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../api';
 import { observable, set } from 'mobx';
 import _ from 'lodash';
 import config from '../config';
@@ -11,7 +11,7 @@ class ImageStore {
   currentPage = observable({});
 
   async fetchImages(filter) {
-    let resp = await axios.get(`${config.apiServer}/api/images/`, {
+    let resp = await api.get(`${config.apiServer}/api/images/`, {
       params: filter
     });
 
@@ -19,7 +19,7 @@ class ImageStore {
   }
 
   async fetchAddTag(imageId, tag) {
-    let resp = await axios.post(`${config.apiServer}/api/images/${imageId}/add_tag/`, {
+    let resp = await api.post(`${config.apiServer}/api/images/${imageId}/add_tag/`, {
       tag
     });
   }
@@ -35,7 +35,7 @@ class ImageStore {
     let data = new FormData();
     data.append('image', file);
 
-    let resp = await axios.put(`${config.apiServer}/api/upload/`, data);
+    let resp = await api.put(`${config.apiServer}/api/upload/`, data);
     return resp.data;
   }
 }

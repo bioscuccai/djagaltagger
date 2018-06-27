@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../api';
 import { observable } from 'mobx';
 import config from '../config';
 
@@ -10,13 +10,13 @@ class ImageRangeStore {
   imageRanges = observable([])
 
   async fetchImageRanges() {
-    let resp = await axios.get(`${config.apiServer}/api/image_ranges/`);
+    let resp = await api.get(`${config.apiServer}/api/image_ranges/`);
 
     this.imageRanges.replace(resp.data);
   }
 
   async createImageRange(imageRange) {
-    let resp = await axios.post(`${config.apiServer}/api/image_ranges/`, {
+    let resp = await api.post(`${config.apiServer}/api/image_ranges/`, {
       start: imageRange.start,
       end: imageRange.end,
       name: imageRange.name,

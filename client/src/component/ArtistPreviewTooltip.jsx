@@ -37,7 +37,6 @@ class ArtistPreviewTooltip extends Component {
 
   handleHover = e => {
     if(!this.state.hasBeenActivated && this.props.artist.previewImages.length !== 0) {
-      console.log('activated ' + this.props.artist.name);
       this.setState({
         ...this.state,
         hasBeenActivated: true

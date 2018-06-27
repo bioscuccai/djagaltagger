@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../api';
 import { observable } from 'mobx';
 import config from '../config';
 
@@ -10,7 +10,7 @@ class ArtistStore {
   artists = observable([]);
 
   async fetchArtists() {
-    let resp = await axios.get(`${config.apiServer}/api/artists/`);
+    let resp = await api.get(`${config.apiServer}/api/artists/`);
     this.artists.replace(resp.data);
   }
 }

@@ -1,7 +1,6 @@
-import axios from 'axios';
+import api from '../api';
 import { observable, toJS } from 'mobx';
 import config from '../config';
-import _ from 'lodash';
 
 class TagStore {
   constructor(rootStore) {
@@ -15,7 +14,7 @@ class TagStore {
   });
 
   async fetchTags() {
-    let resp = await axios.get(`${config.apiServer}/api/tags/`);
+    let resp = await api.get(`${config.apiServer}/api/tags/`);
     this.tags.replace(resp.data.map(result => result.name));
   }
 

@@ -1,5 +1,5 @@
 import config from '../config';
-import axios from 'axios';
+import api from '../api';
 import { observable } from 'mobx';
 
 class DifferenceStore {
@@ -10,7 +10,7 @@ class DifferenceStore {
   }
 
   async fetchDifferences(files) {
-    let resp = await axios.post(`${config.apiServer}/api/differences/`, {
+    let resp = await api.post(`${config.apiServer}/api/differences/`, {
       files
     });
 
