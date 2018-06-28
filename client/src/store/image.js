@@ -16,12 +16,15 @@ class ImageStore {
     });
 
     set(this.currentPage, resp.data);
+    return resp.data;
   }
 
   async fetchAddTag(imageId, tag) {
     let resp = await api.post(`${config.apiServer}/api/images/${imageId}/add_tag/`, {
       tag
     });
+
+    return resp.data;
   }
 
   addTag(imageId, tag) {

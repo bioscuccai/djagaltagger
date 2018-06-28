@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 import qs from 'qs';
 
-import TagList from './TagList';
 import ImageList from './ImageList';
 import TagAdder from './TagAdder';
 import Paginator from './Paginator';

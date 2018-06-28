@@ -68,7 +68,7 @@ class Paginator extends Component {
               page={i}
             /> }
 
-            {i === parseInt(this.props.current) ? <strong>{i}</strong> : i}
+            {i === parseInt(this.props.current, 10) ? <strong>{i}</strong> : i}
           </Link>
 
           &nbsp;

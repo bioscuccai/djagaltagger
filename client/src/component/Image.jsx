@@ -11,7 +11,7 @@ class Image extends Component {
       <div>
         <div>
           <a href={this.props.image.image} target="_blank">
-            <img className="thumbnail" src={`${config.apiServer}${this.props.image.thumbnailUrl}`} />
+            <img className="thumbnail" src={`${config.apiServer}${this.props.image.thumbnailUrl}`} alt=""/>
           </a>
         </div>
 

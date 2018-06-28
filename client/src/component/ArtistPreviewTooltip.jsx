@@ -25,7 +25,7 @@ class ArtistPreviewTooltip extends Component {
                     'column-50': this.props.artist.previewImages.length === 2,
                     'column-33': this.props.artist.previewImages.length === 3,
                   })}>
-                    <img src={`${config.apiServer}${image.thumbnailUrl}`}/>
+                    <img src={`${config.apiServer}${image.thumbnailUrl}`} alt=""/>
                   </div>
                 );
               })
