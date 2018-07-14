@@ -1,0 +1,26 @@
+{% extends "admin/change_form.html" %}
+
+{% block field_sets %}
+  {{ block.super }}
+  <input type="submit" id="guess_name_btn" value="Guess name">
+{% endblock %}
+
+{% block admin_change_form_document_ready %}
+{{block.super}}
+<script type="text/javascript">
+  document.getElementById('guess_name_btn').addEventListener('click', e => {
+    e.preventDefault();
+    console.log('clicked');
+    const currentName = document.getElementById('id_prefix').value || '';
+    const transformed = currentName.split('-')
+      .map(part => {
+        return part.charAt(0).toUpperCase() + part.substring(1);
+      })
+      .join(' ');
+    document.getElementById('id_name').value = transformed;
+    if (!document.getElementById('id_description').value) {
+      document.getElementById('id_description').value = transformed;
+    }
+  }), false;
+</script>
+{% endblock %}
