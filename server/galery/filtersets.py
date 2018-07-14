@@ -1,5 +1,5 @@
 from django_filters import rest_framework as filters
-from .models import Image, Artist
+from .models import Image, Artist, ImageRange
 
 class ImageFilter(filters.FilterSet):
     tag = filters.CharFilter(name="tags__name")
@@ -23,3 +23,10 @@ class ImageFilter(filters.FilterSet):
     # name="image__regex" doesn't work
     def filename_pattern_filter(self, queryset, name, value):
         return queryset.filter(image__regex=value)
+
+class ImageRangeFilter(filters.FilterSet):
+    prefix = filters.CharFilter(field_name="name", lookup_expr="startswith")
+
+    class Meta:
+        model = ImageRange
+        fields = ()

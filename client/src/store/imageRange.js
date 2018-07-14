@@ -9,10 +9,28 @@ class ImageRangeStore {
 
   imageRanges = observable([])
 
+  suggestions = observable([])
+
   async fetchImageRanges() {
     let resp = await api.get(`${config.apiServer}/api/image_ranges/`);
 
     this.imageRanges.replace(resp.data);
+  }
+
+  async fetchSuggestions(prefix) {
+    if (!prefix) {
+      return;
+    }
+
+    let resp = await api.get('/api/image_ranges/', {
+      params: {
+        prefix
+      }
+    });
+
+    this.suggestions.replace(resp.data);
+
+    return resp.data;
   }
 
   async createImageRange(imageRange) {

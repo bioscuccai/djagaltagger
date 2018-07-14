@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
+import ColorSuggestion from './ColorSuggestion';
+import _ from 'lodash';
 
 function defaultBoundaryFromPage(page = 0, pageSize = 40) {
   return {
@@ -18,6 +20,11 @@ class ImageRangeForm extends Component {
       visible: false,
       ...defaultBoundaryFromPage(this.props.page, this.props.pageSize)
     };
+
+    this.fetchSuggestions = _.debounce(prefix => {
+      console.log('suggest ' + prefix);
+      this.props.store.imageRanges.fetchSuggestions(prefix)
+    }, 200);
   }
 
   componentDidUpdate(prevProps) {
@@ -53,6 +60,17 @@ class ImageRangeForm extends Component {
           onChange={e => this.handleFieldChange('end', e.target.value)} />
         <label>Color</label>
         <input type="color" value={this.state.color} onChange={e => this.handleFieldChange('color', e.target.value)}/>
+        <div>
+          {this.props.store.imageRanges.suggestions.map(imageRange => {
+            return (
+              <ColorSuggestion
+                key={`color-suggestion-${imageRange.pk}`}
+                imageRange={imageRange}
+                onClick={this.handleColorSuggestionClick.bind(this, imageRange.color)}
+              />
+            );
+          })}
+        </div>
         <div className="row" style={{width: '100%'}}>
           <div className="column column-50">
             <button type="button" className="button button-outline"
@@ -76,6 +94,10 @@ class ImageRangeForm extends Component {
       ...this.state,
       [field]: value
     });
+
+    if (field === 'name') {
+      this.fetchSuggestions(value);
+    }
   }
 
   handleSubmitImageRange = async (e) => {
@@ -87,6 +109,13 @@ class ImageRangeForm extends Component {
     this.setState({
       ...this.state,
       visible: !this.state.visible
+    });
+  }
+
+  handleColorSuggestionClick = color => {
+    console.log('setting color ' + color);
+    this.setState({
+      color
     });
   }
 };

@@ -101,3 +101,11 @@
 .artist-description {
   font-style: italic;
 }
+
+.color-suggestion {
+  max-width: 80px;
+  padding: 3px;
+  border: 3px solid black;
+  font-size: 66%;
+  cursor: pointer;
+}
